@@ -3,7 +3,7 @@
 
 Please follow below STEPS:
 
-1- git clone
+1- git clone https://github.com/muslimrao/symphony_command_stock.git
 
 2- cd /directory
 
