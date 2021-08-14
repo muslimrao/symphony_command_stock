@@ -5,7 +5,7 @@ Please follow below STEPS:
 
 1- git clone https://github.com/muslimrao/symphony_command_stock.git
 
-2- cd /directory
+2- cd .\symphony_command_stock\
 
 3- composer install
 
