@@ -24,8 +24,10 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 
 
+ 
 class ImportStockCommand extends Command
 {
     protected static $defaultName = 'app:import-stock';
@@ -35,7 +37,7 @@ class ImportStockCommand extends Command
     private $csvheader_sku = "SKU";
     private $csvheader_branch = "BRANCH";
     private $csvheader_stock = "STOCK";
-    private $isDebug = true;
+    private $isDebug = false;
     private $lowStockQuantity = 1;
 
 
