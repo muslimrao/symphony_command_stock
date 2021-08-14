@@ -140,7 +140,11 @@ class ImportStockCommand extends Command
         //validate if SKU is empty.
         if ($Get_SKU == "") {
             $io->error("SKU cannot be Empty");
-        } else {
+        } 
+        else  if (count($branches_array) <= 0 ) {
+            $io->error("No Branch Found.");
+        }
+        else {
 
             $Ask_BRANCH = new ChoiceQuestion("Please type BRANCH:     ", $branches_array);
             $Get_BRANCH = $this->getHelper('question')->ask($input, $output, $Ask_BRANCH);
