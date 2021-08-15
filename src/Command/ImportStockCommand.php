@@ -37,17 +37,21 @@ class ImportStockCommand extends Command
     private $csvheader_sku = "SKU";
     private $csvheader_branch = "BRANCH";
     private $csvheader_stock = "STOCK";
-    private $isDebug = false;
+    private $isDebug = 1;
     private $lowStockQuantity = 1;
+    private $MAILTO_EMAIL;
 
-
-    public function __construct(KernelInterface $appKernel, EntityManagerInterface $entityManagerInterface, MailerInterface $mailer)
+    public function __construct(KernelInterface $appKernel, EntityManagerInterface $entityManagerInterface, MailerInterface $mailer, $MAILTO_EMAIL, $IS_DEBUG)
     {
         $this->appKernel = $appKernel;
         $this->entityManager = $entityManagerInterface;
         $this->mailer = $mailer;
 
+        $this->MAILTO_EMAIL = $MAILTO_EMAIL;
+        $this->isDebug = $IS_DEBUG;
 
+  
+        
         parent::__construct();
     }
 
@@ -221,7 +225,7 @@ class ImportStockCommand extends Command
         foreach ($allRecords as $record) {
 
             if ($this->isDebug) {
-                if (count($setTableRows) > 500) {
+                if (count($setTableRows) > 100) {
                     break;
                 }
             }
@@ -253,10 +257,18 @@ class ImportStockCommand extends Command
 
     private function alert_low_stocks( $tmp_stock_alerts )
     {
+       
+       if ( $this->MAILTO_EMAIL  == "")
+       {
+            $this->MAILTO_EMAIL         = "fairsit.m@gmail.com";
+       }
+
+
+
         $_body = "<table border='1'><tr><td>Branch</td><td>SKU</td><td>Stock</td></tr>". implode("", $tmp_stock_alerts ) ."</table>";
         $email = (new Email())
-            ->from('fairsit.m@gmail.com')
-            ->to('fairsit.m@gmail.com')
+            ->from($this->MAILTO_EMAIL)
+            ->to($this->MAILTO_EMAIL)
             ->subject('Stock Alert !!!')
             
             ->html('<p><strong>Stock Alert:</strong></p><br> ' . $_body);
