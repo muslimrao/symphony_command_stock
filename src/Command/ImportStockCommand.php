@@ -225,7 +225,7 @@ class ImportStockCommand extends Command
         foreach ($allRecords as $record) {
 
             if ($this->isDebug) {
-                if (count($setTableRows) > 100) {
+                if (count($setTableRows) > 10) {
                     break;
                 }
             }
@@ -315,7 +315,7 @@ class ImportStockCommand extends Command
         foreach ($get_rows as $row) {
 
             if ($this->isDebug) {
-                if ($new_record_entries >= 100 || $exists_record_entries >= 100) {
+                if ($new_record_entries >= 10 || $exists_record_entries >= 10) {
                     break;
                 }
             }
